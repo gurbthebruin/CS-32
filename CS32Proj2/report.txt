@@ -1,0 +1,91 @@
+Gurbir Arora 
+UID: 105178554
+
+A description of the design of your doubly-linked list implementation. (A couple of sentences will probably suffice, perhaps with a picture of a typical Sequence and an empty Sequence. Is the list circular? Does it have a dummy node? What's in your list nodes?):
+
+My doubly-linked list is circular with a dummy node denoted as m_head. A struct class defines the node and each node comes with m_next and m_prev pointers that allow access to the next and previous nodes, respectively. Also, each node has an m_item of type ItemType in order to store its data. Finally, to keep track of size, there's an m_size variable. 
+Empty Seq:       
+    
+ m_head
+ | 			    
+ |
+ |   dummy node
+ |  ---------
+ -->| ???   |m_item
+ ^  ---------
+ <-|m_next |
+ |  ---------
+ <-|m_prev |
+    ---------
+
+ Typical Seq:						
+
+        								  
+ ---|m_head|<--------------------------------------------------------------											  |
+ |                                                               	  | 
+ |                                                                        | 
+ |                     --->node1             ---->node2              |  
+ -->| dummy  |m_key           | 290439  |m_item       |390339 |m_item      |  
+    |m_next |>-------------+  |m_next |--------->   | m_next|------------>|
+ +-<|m_prev |<---------------<| m_prev|<------------<| m_prev|
+ | 
+ |                                                        ^
+ |                                                        |
+ |________________________________________________________|
+Pseudo code: 
+void interleave(const Sequence& seq1, const Sequence& seq2, Sequence& result): 
+{
+    Create a temp sequence with two type items 
+    
+    //mark where to insert
+	repeatedly: 
+	until seq1 or seq2 is maxed 
+		insert items at insertAt value 
+
+    Update result to be the temp seq 
+}
+
+ int remove(const ItemType& value): 
+{
+	// create a counter
+	// while value is found, erase 
+	// every time you erase, add to counter 
+    	// return counter to indicate how many items were deleted 
+}
+
+Test cases:     Sequence s;
+    assert(s.insert(0, "lavash") == 0);
+    assert(s.insert(0, "tortilla") == 0);
+    //assure that insert returns pos when success addition
+    assert(s.insert(-1, "tortilla") == -1);
+    //assure that insert throws exception when pos is out of bounds
+    assert(s.size() == 2);
+    //assures that size stays updates
+    ItemType x = "injera";
+    assert(s.get(0, x)  &&  x == "tortilla");
+    assert(s.get(1, x)  &&  x == "lavash");
+    //assures that the get function stores the values properly
+    assert(s.find("tortilla") == 0);
+    s.insert("tortilla");
+    assert(s.remove("tortilla") == 2);
+    //assures that the remove function removes multiple objects of the same type and properly returns the amount of deleted objects
+    Sequence s2;
+    s2.insert(0, "tortilla");
+    s2.insert(1, "roti");
+    s.swap(s2);
+    assert(s.size() == 2  &&  s2.size() == 1);
+    //assures swap function swaps sizes properly
+    assert(subsequence(s,s2) == -1 );
+    //assures subsequence detects errors
+    Sequence s3;
+    assert(s3.insert(0, "ok")); //insert
+    assert(s3.insert(0, "yo"));
+    assert(s3.size() == 2);
+    ItemType x1 = "joe";
+    assert(s3.get(0, x1) && x1 == "yo");//make use of the get func
+    assert(s3.get(1, x1) && x1 == "ok");
+    assert(s3.set(1, "de") && s3.get(1, x) && x == "de");
+    assert(!s.set(2, "ldsvkn")); //check sets "error" capability
+
+
+                                                        
